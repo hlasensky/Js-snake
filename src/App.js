@@ -1,25 +1,62 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import Head from "./head/Head";
+import Controls from "./controls/controls";
+import Colisions from "./colisions/Colisions";
+
+import "./App.css";
+
+function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [direction, setDirection] = useState("right");
+	const [clock, setClock] = useState(0);
+	const [gameState, setGameState] = useState("start");
+	const [position, setPosition] = useState([200, 200]);
+	const [score, setScore] = useState(1);
+
+	useEffect(() => {
+		sleep(100).then(() => {
+			setClock(clock + 1);
+		});
+	});
+
+	useEffect(() => {
+		switch (direction) {
+			case "right":
+				setPosition([position[0] + 20, position[1]]);
+				break;
+			case "left":
+				setPosition([position[0] - 20, position[1]]);
+				break;
+			case "up":
+				setPosition([position[0], position[1] - 20]);
+				break;
+			case "down":
+				setPosition([position[0], position[1] + 20]);
+				break;
+			default:
+				break;
+		}
+	}, [clock]);
+
+	if (gameState === "end") {
+		return (
+			<div className="App">
+				<h1>END</h1>
+			</div>
+		);
+	}
+	return (
+		<div className="App">
+			<div className="border">
+				<Controls setDirection={setDirection} />
+				<Colisions setGameState={setGameState} position={position} />
+				<Head position={position} direction={direction} />
+			</div>
+		</div>
+	);
 }
 
 export default App;
