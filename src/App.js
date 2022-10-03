@@ -17,7 +17,7 @@ function App() {
 	const [score, setScore] = useState(1);
 
 	useEffect(() => {
-		sleep(100).then(() => {
+		sleep(140).then(() => {
 			setClock(clock + 1);
 		});
 	});
@@ -25,16 +25,16 @@ function App() {
 	useEffect(() => {
 		switch (direction) {
 			case "right":
-				setPosition([position[0] + 20, position[1]]);
+				setPosition([position[0] + 40, position[1]]);
 				break;
 			case "left":
-				setPosition([position[0] - 20, position[1]]);
+				setPosition([position[0] - 40, position[1]]);
 				break;
 			case "up":
-				setPosition([position[0], position[1] - 20]);
+				setPosition([position[0], position[1] - 40]);
 				break;
 			case "down":
-				setPosition([position[0], position[1] + 20]);
+				setPosition([position[0], position[1] + 40]);
 				break;
 			default:
 				break;
@@ -52,7 +52,7 @@ function App() {
 		<div className="App">
 			<div className="border">
 				<Controls setDirection={setDirection} />
-				<Colisions setGameState={setGameState} position={position} />
+				<Colisions clock={clock} setGameState={setGameState} position={position} />
 				<Head position={position} direction={direction} />
 			</div>
 		</div>

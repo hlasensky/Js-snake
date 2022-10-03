@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 
 import "./Border.css";
 
-function Colisions({ setGameState, position }) {
-	const windowHeight = Math.floor(window.innerHeight / 20) * 20;
-	const windowWidth = Math.floor(window.innerWidth / 20) * 20;
-    console.log(windowHeight)
-	useState(() => {
+const Colisions = ({ setGameState, position, clock }) => {
+	/*const windowHeight = Math.floor(window.innerHeight / 20) * 20;
+	const windowWidth = Math.floor(window.innerWidth / 20) * 20;*/
+	const windowHeight = 540;
+	const windowWidth = 640;
+	useEffect(() => {
+		console.log(1)
 		if (
-			windowWidth < position[0] ||
+			windowWidth - 39 < position[0] ||
 			position[0] < 0 ||
-			windowHeight < position[1] ||
+			windowHeight - 39 < position[1] ||
 			position[1] < 0
 		) {
+			setGameState("end")
 			console.log("end!");
-			setGameState("end");
+			
 		}
-	}, [position]);
+	}, [clock, position, setGameState]);
 }
 
 export default Colisions;

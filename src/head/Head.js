@@ -3,7 +3,6 @@ import "./Head.css";
 
 function Head({position}) {
 
-    console.log(position)
 	return (
 		<div
 			className="head"
