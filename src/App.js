@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Head from "./head/Head";
 import Controls from "./controls/controls";
 import Colisions from "./colisions/Colisions";
+import Snake from "./Snake/Snake";
 
 import "./App.css";
 
@@ -14,7 +14,7 @@ function App() {
 	const [clock, setClock] = useState(0);
 	const [gameState, setGameState] = useState("start");
 	const [position, setPosition] = useState([200, 200]);
-	const [score, setScore] = useState(1);
+	const [score, setScore] = useState(2);
 
 	useEffect(() => {
 		sleep(140).then(() => {
@@ -53,7 +53,7 @@ function App() {
 			<div className="border">
 				<Controls setDirection={setDirection} />
 				<Colisions clock={clock} setGameState={setGameState} position={position} />
-				<Head position={position} direction={direction} />
+				<Snake score={score} position={position} direction={direction} />
 			</div>
 		</div>
 	);
