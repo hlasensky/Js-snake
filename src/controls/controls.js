@@ -1,29 +1,46 @@
-function Controls({setDirection}) {
-	window.addEventListener("keydown", (e) => {
-		if (e.defaultPrevented) {
-			return;
-		}
-		switch (e.key) {
-			case "ArrowDown":
-				// code for "down arrow" key press.
-				setDirection("down");
-				break;
-			case "ArrowUp":
-				setDirection("up");
-				// code for "up arrow" key press.
-				break;
-			case "ArrowLeft":
-				setDirection("left");
-				// code for "left arrow" key press.
-				break;
-			case "ArrowRight":
-				setDirection("right");
-				// code for "right arrow" key press.
-				break;
-			default:
-				return; // Quit when this doesn't handle the key event.
-		}
-  });
+import { useEffect } from "react";
+
+function Controls({ setDirection, direction, clock }) {
+	useEffect(() => {
+		window.addEventListener("keydown", (e) => {
+			if (e.defaultPrevented) {
+				return;
+			}
+			switch (e.key) {
+				case "ArrowDown":
+					if (direction === "up") {
+						console.log("up in down")
+						setDirection("up")
+						return;
+					}
+					setDirection("down");
+					return;
+				case "ArrowUp":
+					if (direction === "down") {
+						setDirection("down")
+						return;
+					}
+					setDirection("up");
+					return;
+				case "ArrowLeft":
+					if (direction === "right") {
+						setDirection("right")
+						return;
+					}
+					setDirection("left");
+					return;
+				case "ArrowRight":
+					if (direction === "left") {
+						setDirection("left")
+						return;
+					}
+					setDirection("right");
+					return;
+				default:
+					return;
+			}
+		});
+	}, [clock])
 }
 
 export default Controls;

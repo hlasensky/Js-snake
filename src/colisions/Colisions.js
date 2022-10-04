@@ -2,13 +2,11 @@ import React, { useEffect } from "react";
 
 import "./Border.css";
 
-const Colisions = ({ setGameState, position, clock }) => {
-	/*const windowHeight = Math.floor(window.innerHeight / 20) * 20;
-	const windowWidth = Math.floor(window.innerWidth / 20) * 20;*/
+const Colisions = ({ setGameState, position, clock, coordinates, appleCoordinates, setScore, score }) => {
+
 	const windowHeight = 540;
 	const windowWidth = 640;
 	useEffect(() => {
-		console.log(1)
 		if (
 			windowWidth - 39 < position[0] ||
 			position[0] < 0 ||
@@ -19,7 +17,25 @@ const Colisions = ({ setGameState, position, clock }) => {
 			console.log("end!");
 			
 		}
-	}, [clock, position, setGameState]);
+	}, [ clock, position, setGameState ]);
+
+	useEffect(() => {
+		coordinates.map(coordinate => {
+			if (position[ 0 ] === appleCoordinates[ 0 ] && position[ 1 ] === appleCoordinates[ 1 ]) {
+				return setScore(score + 1)
+			}
+		})
+	}, [position[0], position[1]]);
+	
+	
+	useEffect(() => {
+		coordinates.map(coordinate => {
+			if (coordinate[ 0 ] === position[ 0 ] && coordinate[ 1 ] === position[ 1 ]) {
+				setGameState("end")
+			console.log("end!");
+			}
+		})
+	}, [position[0], position[1]]);
 }
 
 export default Colisions;

@@ -1,6 +1,11 @@
 .head {
     width: 40px;
     height: 40px;
-    background-color: darkgreen;
     position: absolute;
+    border: 1px black solid;
 }
+
+.first {
+    border: 1px black dashed !important;
+}
+
