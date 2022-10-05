@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Apple.css";
 
-function Apple({ score,appleCoordinates, setAppleCoordinates, coordinates }) {
-
+function Apple({ score, appleCoordinates, setAppleCoordinates, coordinates }) {
 	function randomNumber(min, max) {
 		return Math.floor(Math.random() * (max - min) + min);
 	}
@@ -10,23 +9,28 @@ function Apple({ score,appleCoordinates, setAppleCoordinates, coordinates }) {
 	useEffect(() => {
 		let positionX = randomNumber(0, 16);
 		let positionY = randomNumber(0, 13);
-		coordinates.slice(1).map(coordinate => {
-			if (coordinate[ 0 ] === appleCoordinates[ 0 ] && coordinate[ 1 ] === appleCoordinates[ 1 ]) {
+		const newCoordinates = coordinates.slice(1)
+		newCoordinates.map((coordinate) => {
+			if (
+				coordinate[0] === appleCoordinates[0] &&
+				coordinate[1] === appleCoordinates[1]
+			) {
+				console.log("newPosition")
 				positionX = randomNumber(0, 16);
 				positionY = randomNumber(0, 13);
-				
 			}
-		})
-		setAppleCoordinates([ positionX * 40, positionY * 40 ]);
+		});
+		setAppleCoordinates([positionX * 40, positionY * 40]);
 	}, [score]);
 	return (
 		<div
-			className="apple"
+			className="appleContainer"
 			style={{
-				transform: `translate(${appleCoordinates[0]}px, ${appleCoordinates[1]}px)`,
+				left: `${appleCoordinates[0]}px`,
+				top: `${appleCoordinates[1]}px`,
 			}}
 		>
-			<span></span>
+			<span className="apple"></span>
 		</div>
 	);
 }

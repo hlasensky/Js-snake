@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Head from "../head/Head";
 
-function Snake({ position, score, setCoordinates, coordinates }) {
+function Snake({ position, score, setCoordinates, coordinates, randomColorSetting }) {
 
     
     
@@ -11,7 +11,7 @@ function Snake({ position, score, setCoordinates, coordinates }) {
 
 
 	const renderSnake = coordinates.map((position, index) => {
-		return <Head key={index} index={index} position={position} />;
+		return <Head randomColorSetting={randomColorSetting} key={index} index={index} position={position} />;
 	});
 	return renderSnake;
 }

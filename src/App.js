@@ -17,11 +17,15 @@ function App() {
 	const [position, setPosition] = useState([200, 200]);
 	const [score, setScore] = useState(1);
 	const [coordinates, setCoordinates] = useState([]);
-	const [appleCoordinates, setAppleCoordinates] = useState([0, 0]);
+	const [ appleCoordinates, setAppleCoordinates ] = useState([ 0, 0 ]);
+	const [ randomColorSetting, setRandomColorSetting ] = useState(false)
+	const [pause, setPause] = useState(false)
 
 	useEffect(() => {
-		sleep(140).then(() => {
-			setClock(clock + 1);
+		sleep(140 - (score * 0.5)).then(() => {
+			if (!pause) {
+				setClock(clock + 1);
+			}
 		});
 	});
 
@@ -48,6 +52,19 @@ function App() {
 		return (
 			<div className="App">
 				<h1>END</h1>
+				<h1>{ score }</h1>
+				<button
+					onClick={() => {
+						setDirection("right")
+						setGameState("start");
+						setPosition([ 200, 200 ])
+						setScore(1)
+						setCoordinates([])
+
+					}}
+				>
+					Click to start again!
+				</button>
 			</div>
 		);
 	}
@@ -74,6 +91,7 @@ function App() {
 					direction={direction}
 					setCoordinates={setCoordinates}
 					coordinates={coordinates}
+					randomColorSetting={randomColorSetting}
 				/>
 				<Apple
 					score={score}
@@ -81,7 +99,12 @@ function App() {
 					setAppleCoordinates={setAppleCoordinates}
 					coordinates={coordinates}
 				/>
+			</div>
+			<div>
 				<h1>{score}</h1>
+				<button onClick={() => setRandomColorSetting(!randomColorSetting)}>Random color cells</button>
+				<br></br>
+				<button onClick={() => setPause(!pause)}>Pause</button>
 			</div>
 		</div>
 	);
